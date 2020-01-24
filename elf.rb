@@ -1,4 +1,4 @@
-class ELF
+class Elf
   MAGIC = "\x7fELF"
   ET_EXEC = 2
   ARCH_386 = 3

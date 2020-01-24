@@ -1,3 +1,8 @@
+h:
+	ruby hello.rb > hello
+	@xxd hello
+	@chmod 755 hello
+	@./hello
 test:
 	@echo 'mov al, 3'
 	@echo 'mov eax, edx'
