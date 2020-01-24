@@ -1,10 +1,7 @@
 module X86::Mov
   def regimm(to, from)
     return xor(to, to) if from == 0
-    #imm(
-    #  imm8: 0xb0 + regno(to),
-    #  imm32: 0xb8 + regno(to), val: from)
-    #
+    return xor(to, to) + inc(to) if from == 1
     [0xb8 + regno(to), from].pack('CL')
   end
 
