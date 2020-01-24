@@ -4,7 +4,7 @@ class Linux32 < X86
     ops << mov(:a, no)
     ops << mov(:b, ebx)
     ops << mov(:c, ecx) if ecx
-    ops << mov(:c, edx) if edx
+    ops << mov(:d, edx) if edx
     ops << int(0x80)
     ops.join
   end

@@ -1,8 +1,10 @@
 module X86::Mov
   def regimm(to, from)
-    imm(
-      imm8: 0xb0 + regno(to),
-      imm32: 0xb8 + regno(to), val: from)
+    #imm(
+    #  imm8: 0xb0 + regno(to),
+    #  imm32: 0xb8 + regno(to), val: from)
+    #
+    [0xb8 + regno(to), from].pack('CL')
   end
 
   def mov(to, from)
