@@ -23,7 +23,11 @@ module X86::ModRM
   end
 
   def modrm(r, rm, mode = nil)
-    (mod(mode) << 6) | (regno(r) << 3) | regno(rm)
+    if r.is_a?(Array) && !mode
+      (regno(r.first) << 3) | regno(rm)
+    else
+      (mod(mode) << 6) | (regno(r) << 3) | regno(rm)
+    end
   end
   alias rr modrm
 end

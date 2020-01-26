@@ -9,10 +9,7 @@ module X86::Mov
     # Integer to register
     return regimm(to, from) if to.is_a?(Symbol) && from.is_a?(Integer)
 
-    binaryop(to, from, map: {
-      rmr8: 0x88, rmr32: 0x89,
-      rrm8: 0x8a, rrm32: 0x8b,
-      rm8:  0xc6, rm32: 0x67 })
+    binaryop(to, from, 0x88)
   end
 
   def nop
