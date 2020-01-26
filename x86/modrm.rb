@@ -1,5 +1,6 @@
 module X86::ModRM
   def regno(reg)
+    return reg if reg.is_a? Integer
     case reg
     when :a then 0
     when :c then 1
@@ -21,8 +22,8 @@ module X86::ModRM
     else 3 end
   end
 
-  def modrm(to, from, mode = nil)
-    (mod(mode) << 6) | (regno(to) << 3) | regno(from)
+  def modrm(r, rm, mode = nil)
+    (mod(mode) << 6) | (regno(r) << 3) | regno(rm)
   end
   alias rr modrm
 end
