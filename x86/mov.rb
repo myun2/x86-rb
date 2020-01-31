@@ -34,21 +34,31 @@ module X86::Mov
   end
 
   def mov(to, from)
-    # Integer to register
+    # Reg <= Imm
     return regimm(to, from) if to.is_a?(Symbol) && from.is_a?(Integer)
 
-    # IMM to ptr
+    # Ptr <= Imm
+    return imm2ptr(to, from) if to.is_a?(Array) && from.is_a?(Integer)
     return imm2ptr(to, from) if to.is_a?(X86::Ptr) && from.is_a?(Integer)
 
-    #binaryop(to, from, 0x88)
     [0x89, modrm(from, to)].pack('CC')
   end
 
   def imm2ptr(ptr, imm)
-    if char?(imm)
-      [ 0xc7, modrm_digit(0, ptr.r, :disp8), ptr.disp, imm].pack('CCCL')
+    if ptr.is_a? Array
+      if ptr.first.is_a? Symbol
+        mdr = modrm_digit(0, ptr_regno(ptr.first), :ptr)
+        [ 0xc7, mdr, imm].pack('CCL')
+      else
+        mdr = modrm_digit(0, ptr_regno(:disp32), :ptr)
+        [ 0xc7, mdr, ptr.first, imm].pack('CCLL')
+      end
+    elsif char?(imm)
+      mdr = modrm_digit(0, ptr.r, :disp8)
+      [ 0xc7, mdr, ptr.disp, imm].pack('CCCL')
     else
-      [ 0xc7, modrm_digit(0, ptr.r, :disp32), ptr.disp, imm].pack('CCLL')
+      mdr = modrm_digit(0, ptr.r, :disp32)
+      [ 0xc7, mdr, ptr.disp, imm].pack('CCLL')
     end
   end
 
