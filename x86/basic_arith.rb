@@ -19,8 +19,8 @@ module X86::BasicArith
   def binaryop(to, from, base)
     if from.is_a? Integer
       return imma(from, base) if to == :a
-      return [0x83, modrm(to, base / 8), from].pack('CCC') if char?(from)
-      return [0x81, modrm(to, base / 8), from].pack('CCL')
+      return [0x83, modrm(base / 8, to), from].pack('CCC') if char?(from)
+      return [0x81, modrm(base / 8, to), from].pack('CCL')
     end
     return [base + 1, modrm(to, from)].pack('CC')
   end
