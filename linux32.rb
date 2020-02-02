@@ -1,10 +1,12 @@
 class Linux32 < X86
-  def syscall(no, ebx = nil, ecx = nil, edx = nil)
+  def syscall(no, ebx = nil, ecx = nil, edx = nil, esi = nil, edi = nil)
     ops = []
     ops << mov(:a, no)
     ops << mov(:b, ebx) if ebx
     ops << mov(:c, ecx) if ecx
     ops << mov(:d, edx) if edx
+    ops << mov(:si, esi) if esi
+    ops << mov(:di, edi) if edi
     ops << int(0x80)
     ops.join
   end
@@ -50,9 +52,32 @@ class Linux32 < X86
   end
 
   def malloc(len)
-    syscall(45, 0)
-    mov(:b, :a)
-    add(:b, len)
-    syscall(45)
+    ops = ""
+    ops << syscall(45, 0)
+    ops << mov(:b, :a)
+    ops << add(:b, len)
+    ops << brk
+    ops
+  end
+
+  def socket_call(no, args)
+    syscall(0x66, no, regs)
+  end
+
+  def clone(fn, stack, flags, args, pt_regs)
+    syscall(0x78, fn, stack, flags, args, pt_regs)
+  end
+
+  def sleep(sec, usec = 0)
+    ops = ""
+    ops << push(usec)
+    ops << push(sec)
+    ops << mov(:b, :sp)
+    ops << syscall(0xa2, nil, 0)
+    ops
+  end
+
+  def msleep(msec)
+    sleep(0, msec * 1_000_000)
   end
 end
