@@ -1,4 +1,9 @@
+class Linux32 < X86; end
+require './linux32/socket'
+
 class Linux32 < X86
+  include Linux32::Socket
+
   def syscall(no, ebx = nil, ecx = nil, edx = nil, esi = nil, edi = nil)
     ops = []
     ops << mov(:a, no)
@@ -60,8 +65,23 @@ class Linux32 < X86
     ops
   end
 
-  def socket_call(no, args)
-    syscall(0x66, no, regs)
+  def socket_call(no, args, args2 = nil)
+    ops = ''
+
+    args.each do |arg|
+      ops << push(arg)
+    end
+    ops << mov(:c, :sp)
+
+    if args2
+      args2.each do |arg|
+        ops << push(arg)
+      end
+      ops << mov(:c, :sp)
+    end
+
+    ops << syscall(0x66, no)
+    ops
   end
 
   def clone(fn, stack, flags, args, pt_regs)
