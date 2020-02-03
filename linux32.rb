@@ -28,8 +28,16 @@ class Linux32 < X86
     syscall(2, pt_regs)
   end
 
-  def read(fd, buf, size)
-    syscall(3, fd, buf, size)
+  def read(fd, buf = nil, size = nil)
+    unless buf
+      ops = ''
+      ops << sub(:sp, 256)
+      ops << mov(:di, :sp)
+      ops << syscall(3, fd, :sp, 256)
+      ops
+    else
+      syscall(3, fd, buf, size)
+    end
   end
 
   def write(fd, buf, size)
