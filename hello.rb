@@ -1,4 +1,4 @@
-require './elf'
+require './lib/x86/elf'
 require './x86'
 require './linux32'
 
