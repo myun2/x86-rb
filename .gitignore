@@ -1,2 +1,4 @@
 hello
 sock
+*.gem
+Gemfile.lock
