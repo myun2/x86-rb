@@ -1,5 +1,5 @@
 class Linux32 < X86; end
-require './linux32/socket'
+require 'x86/linux32/socket'
 
 class Linux32 < X86
   include Linux32::Socket
