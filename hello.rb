@@ -1,5 +1,5 @@
-require './lib/x86/elf'
-require './x86'
+require 'x86/elf'
+require 'x86'
 require './linux32'
 
 print Elf.new.header
