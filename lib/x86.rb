@@ -4,12 +4,12 @@ require 'x86/modrm'
 require 'x86/rex'
 require 'x86/evex'
 require 'x86/imm'
-require 'x86/basic_arith'
-require 'x86/mov'
-require 'x86/int'
-require 'x86/inc'
-require 'x86/cmp'
-require 'x86/jmp'
+require 'x86/ops/basic_arith'
+require 'x86/ops/mov'
+require 'x86/ops/int'
+require 'x86/ops/inc'
+require 'x86/ops/cmp'
+require 'x86/ops/jmp'
 
 X86.include X86::ModRM
 X86.include X86::Rex
