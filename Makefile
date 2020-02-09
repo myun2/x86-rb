@@ -1,3 +1,8 @@
+itoa:
+	bundle exec ruby utils.rb > test
+	@xxd test
+	@chmod 755 test
+	@./test
 socket:
 	bundle exec ruby sock.rb > sock
 	@xxd sock

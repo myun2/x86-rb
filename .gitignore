@@ -1,4 +1,5 @@
 hello
 sock
+test
 *.gem
 Gemfile.lock
