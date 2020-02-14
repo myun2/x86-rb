@@ -1,6 +1,8 @@
 class X86; end
 
+require 'x86/prefix'
 require 'x86/modrm'
+require 'x86/instruction'
 require 'x86/rex'
 require 'x86/evex'
 require 'x86/imm'
