@@ -22,7 +22,12 @@ module X86::BasicArith
       return [0x83, modrm(base / 8, to), from].pack('CCC') if char?(from)
       return [0x81, modrm(base / 8, to), from].pack('CCL')
     end
-    return [base + 1, modrm(to, from)].pack('CC')
+
+    if to.is_a? Symbol
+      return [base + 3, modrm(to, from)].pack('CC')
+    else
+      return [base + 1, modrm(from, to)].pack('CC')
+    end
   end
 
   private

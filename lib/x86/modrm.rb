@@ -39,7 +39,7 @@ module X86::ModRM
 
   def modrm(r, rm, mode = nil)
     if rm.is_a?(Array) && !mode
-      (regno(rm.first) << 3) | regno(r)
+      (regno(r) << 3) | regno(rm.first)
     else
       (mod(mode) << 6) | (regno(r) << 3) | regno(rm)
     end
