@@ -17,3 +17,19 @@ module X86::Imm
     end
   end
 end
+
+class X86::Immediately
+  attr_reader :value
+
+  def initialize(value)
+    @value = value
+  end
+
+  def char?
+    value >= -128 && value < 128
+  end
+
+  def short?
+    value >= -65536 && value < 65536
+  end
+end
