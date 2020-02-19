@@ -1,13 +1,3 @@
-class  X86::Ptr
-  attr_reader :reg, :add
-  def initialize(reg, add)
-    @reg = reg
-    @add = add
-  end
-  alias r reg
-  alias disp add
-end
-
 module X86::Mov
   def zero(to)
     xor(to, to)
