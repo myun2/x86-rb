@@ -1,6 +1,8 @@
 class X86; end
 
+require 'x86/regno'
 require 'x86/modrm'
+require 'x86/sib'
 require 'x86/rex'
 require 'x86/evex'
 require 'x86/imm'
@@ -12,6 +14,8 @@ require 'x86/ops/inc'
 require 'x86/ops/jmp'
 require 'x86/ops/f6f7'
 
+X86.include X86::Regno
+X86.include X86::Sib
 X86.include X86::ModRM
 X86.include X86::Rex
 X86.include X86::Evex
