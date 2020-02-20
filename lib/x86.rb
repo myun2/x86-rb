@@ -16,7 +16,6 @@ require 'x86/ops/jmp'
 require 'x86/ops/f6f7'
 
 X86.include X86::Regno
-X86.include X86::Sib
 X86.include X86::ModRM
 X86.include X86::Rex
 X86.include X86::Evex
