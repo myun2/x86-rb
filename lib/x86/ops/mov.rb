@@ -1,4 +1,4 @@
-class  X86::Ptr
+class X86::Ptr
   attr_reader :reg, :add
   def initialize(reg, add)
     @reg = reg
