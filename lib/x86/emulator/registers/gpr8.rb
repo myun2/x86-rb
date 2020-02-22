@@ -1,6 +1,6 @@
-module X86::Emuleator::Gpr8
-  def l8(i); q[i] & 0xff; end
-  def h8(i); (q[i] & 0xff00) >> 8; end
+module X86::Emulator::Gpr8
+  def l8(i); gprs[i] & 0xff; end
+  def h8(i); (gprs[i] & 0xff00) >> 8; end
   def al; l8(0); end
   def cl; l8(1); end
   def dl; l8(2); end
